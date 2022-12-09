@@ -1,11 +1,8 @@
 part of services;
 
-class Storage {
-  static final Storage _instance = Storage._internal();
-  factory Storage() => _instance;
+class StorageService extends GetxService {
+  static StorageService get to => Get.find();
   late final SharedPreferences _prefs;
-
-  Storage._internal();
 
   Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
