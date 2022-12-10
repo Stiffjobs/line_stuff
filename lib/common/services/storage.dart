@@ -4,8 +4,9 @@ class StorageService extends GetxService {
   static StorageService get to => Get.find();
   late final SharedPreferences _prefs;
 
-  Future<void> init() async {
+  Future<StorageService> init() async {
     _prefs = await SharedPreferences.getInstance();
+    return this;
   }
 
   Future<bool> setString(String key, String value) async {

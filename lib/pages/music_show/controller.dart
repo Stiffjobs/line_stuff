@@ -1,7 +1,7 @@
-part of main_page;
+part of music_show_page;
 
-class MainController extends GetxController {
-  static MainController go = Get.find();
+class MusicShowController extends GetxController {
+  static MusicShowController go = Get.find();
   List<ShowModel> musicShowList = [];
   final api = ApiService.to.dio;
   String appbarTitle = '音樂表演';

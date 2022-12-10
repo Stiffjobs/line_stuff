@@ -1,3 +1,3 @@
 library models;
 
-part 'music_show.dart';
+part 'show.dart';

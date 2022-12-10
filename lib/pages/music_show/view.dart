@@ -1,0 +1,31 @@
+part of music_show_page;
+
+class MusicShowPage extends StatelessWidget {
+  const MusicShowPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<MusicShowController>(
+        init: MusicShowController(),
+        builder: (controller) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                controller.appbarTitle,
+                style: const TextStyle(
+                  color: Colors.black54,
+                ),
+              ),
+              backgroundColor: Colors.white,
+              elevation: 0.0,
+            ),
+            body: ListView.builder(
+              itemCount: controller.musicShowList.length,
+              itemBuilder: ((context, index) => ListTile(
+                    title: Text(controller.musicShowList[index].title),
+                  )),
+            ),
+          );
+        });
+  }
+}
