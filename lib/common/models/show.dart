@@ -1,6 +1,6 @@
 part of models;
 
-class MusicShowModel {
+class ShowModel {
   String version; //發行版本
   String UID;
   String title; //活動名稱
@@ -23,7 +23,7 @@ class MusicShowModel {
   String startDate; //開始日期
   String endDate; //結束日期
 
-  MusicShowModel({
+  ShowModel({
     required this.version,
     required this.UID,
     required this.title,
@@ -47,8 +47,8 @@ class MusicShowModel {
     required this.supportUnit,
   });
 
-  factory MusicShowModel.fromJson(Map<String, dynamic> json) {
-    return MusicShowModel(
+  factory ShowModel.fromJson(Map<String, dynamic> json) {
+    return ShowModel(
       version: json['version'],
       UID: json['UID'],
       title: json['title'],

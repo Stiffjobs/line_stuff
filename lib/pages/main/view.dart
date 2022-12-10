@@ -12,7 +12,7 @@ class MainPage extends StatelessWidget {
             appBar: AppBar(
               title: Text(
                 controller.appbarTitle,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black54,
                 ),
               ),

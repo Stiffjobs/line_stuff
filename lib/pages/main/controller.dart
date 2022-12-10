@@ -2,18 +2,23 @@ part of main_page;
 
 class MainController extends GetxController {
   static MainController go = Get.find();
-  List<MusicShowModel> musicShowList = [];
+  List<ShowModel> musicShowList = [];
   final api = ApiService.to.dio;
   String appbarTitle = '音樂表演';
 
   Future<void> init() async {
-    CustomToast.loading();
+    try {
+      CustomToast.loading();
 
-    final response =
-        await api.get('https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=1');
-    if (response.statusCode == 200) {
-      musicShowList = (response.data as List).map((e) => MusicShowModel.fromJson(e)).toList();
-      update();
+      final response =
+          await api.get('https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=1');
+      if (response.statusCode == 200) {
+        StorageService.to.setString(Constants.storageMusicShow, jsonEncode(response.data));
+        musicShowList = (response.data as List).map((e) => ShowModel.fromJson(e)).toList();
+        update();
+      }
+    } catch (e) {
+      Console.error(e.toString());
     }
   }
 
