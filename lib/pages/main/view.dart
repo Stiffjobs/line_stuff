@@ -10,6 +10,12 @@ class MainPage extends StatelessWidget {
         builder: (controller) {
           return Scaffold(
             appBar: AppBar(
+              title: Text(
+                controller.appbarTitle,
+                style: TextStyle(
+                  color: Colors.black54,
+                ),
+              ),
               backgroundColor: Colors.white,
               elevation: 0.0,
             ),

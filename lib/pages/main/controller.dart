@@ -4,6 +4,7 @@ class MainController extends GetxController {
   static MainController go = Get.find();
   List<MusicShowModel> musicShowList = [];
   final api = ApiService.to.dio;
+  String appbarTitle = '音樂表演';
 
   Future<void> init() async {
     CustomToast.loading();

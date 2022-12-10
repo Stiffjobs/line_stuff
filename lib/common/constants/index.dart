@@ -7,3 +7,4 @@ import 'package:line_stuff/pages/index.dart';
 
 part 'routes.dart';
 part 'colors.dart';
+part 'constants.dart';
