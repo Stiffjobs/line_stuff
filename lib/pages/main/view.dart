@@ -13,7 +13,12 @@ class MainPage extends StatelessWidget {
               backgroundColor: Colors.white,
               elevation: 0.0,
             ),
-            body: Center(child: Text('hello world')),
+            body: ListView.builder(
+              itemCount: controller.musicShowList.length,
+              itemBuilder: ((context, index) => ListTile(
+                    title: Text(controller.musicShowList[index].title),
+                  )),
+            ),
           );
         });
   }

@@ -5,7 +5,7 @@ class MusicShowModel {
   String UID;
   String title; //活動名稱
   String category; //活動種類
-  ShowInfoModel showInfo; //活動場次資訊
+  List<ShowInfoModel> showInfo; //活動場次資訊
   String showUnit; //演出單位
   String discountInfo; //折扣資訊
   String descriptionFilterHtml; //簡介說明
@@ -53,7 +53,7 @@ class MusicShowModel {
       UID: json['UID'],
       title: json['title'],
       category: json['category'],
-      showInfo: ShowInfoModel.fromJson(json['showInfo']),
+      showInfo: List<ShowInfoModel>.from(json['showInfo'].map((x) => ShowInfoModel.fromJson(x))),
       showUnit: json['showUnit'],
       discountInfo: json['discountInfo'],
       descriptionFilterHtml: json['descriptionFilterHtml'],
@@ -80,8 +80,8 @@ class ShowInfoModel {
   String locationName; //場地名稱
   String onSales; //是否售票
   String price; //售票說明
-  String latitude; //緯度
-  String logitude; //經度
+  // String latitude; //緯度
+  // String logitude; //經度
   String endTime; //結束時間
 
   ShowInfoModel({
@@ -90,9 +90,7 @@ class ShowInfoModel {
     required this.locationName,
     required this.onSales,
     required this.price,
-    required this.latitude,
     required this.endTime,
-    required this.logitude,
   });
 
   factory ShowInfoModel.fromJson(Map<String, dynamic> json) {
@@ -102,8 +100,6 @@ class ShowInfoModel {
       locationName: json['locationName'],
       onSales: json['onSales'],
       price: json['price'],
-      latitude: json['latitude'],
-      logitude: json['logitude'],
       endTime: json['endTime'],
     );
   }

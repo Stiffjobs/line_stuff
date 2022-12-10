@@ -8,10 +8,12 @@ class MainController extends GetxController {
   Future<void> init() async {
     CustomToast.loading();
 
-    await Future.delayed(Duration(seconds: 1));
-
-    // final response = await api
-    //     .get('https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=1');
+    final response =
+        await api.get('https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=1');
+    if (response.statusCode == 200) {
+      musicShowList = (response.data as List).map((e) => MusicShowModel.fromJson(e)).toList();
+      update();
+    }
   }
 
   @override
