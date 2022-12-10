@@ -4,6 +4,7 @@ class RouteNames {
   static const main = '/main';
   static const splash = '/splash';
   static const musicShow = '/music_show';
+  static const showDetail = '/show_detail';
 }
 
 class RoutePages {
@@ -19,6 +20,11 @@ class RoutePages {
     GetPage(
       name: RouteNames.musicShow,
       page: () => MusicShowPage(),
+    ),
+    GetPage(
+      name: RouteNames.showDetail,
+      transition: Transition.cupertino,
+      page: () => ShowDetailPage(),
     ),
   ];
 }

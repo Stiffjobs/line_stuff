@@ -6,7 +6,7 @@ class MusicShowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<MusicShowController>(
-        init: MusicShowController(),
+        init: Get.put<MusicShowController>(MusicShowController()),
         builder: (controller) {
           return Scaffold(
             appBar: AppBar(
@@ -21,9 +21,32 @@ class MusicShowPage extends StatelessWidget {
             ),
             body: ListView.builder(
               itemCount: controller.musicShowList.length,
-              itemBuilder: ((context, index) => ListTile(
-                    title: Text(controller.musicShowList[index].title),
-                  )),
+              itemBuilder: ((context, index) {
+                final show = controller.musicShowList[index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Card(
+                    child: ListTile(
+                      onTap: () => Get.toNamed(RouteNames.showDetail, arguments: {
+                        'show': show,
+                      }),
+                      title: Text(show.title),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(show.sourceWebName),
+                            Text(
+                              '${show.startDate} - ${show.endDate}',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
             ),
           );
         });
