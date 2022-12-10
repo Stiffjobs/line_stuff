@@ -5,11 +5,16 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: const Center(
-        child: Text('Hello main page'),
-      ),
-    );
+    return GetBuilder<MainController>(
+        init: MainController(),
+        builder: (controller) {
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              elevation: 0.0,
+            ),
+            body: Center(child: Text('hello world')),
+          );
+        });
   }
 }
