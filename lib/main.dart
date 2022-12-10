@@ -17,8 +17,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(414, 896),
-      builder: (context, _) => const GetMaterialApp(
-        initialRoute: RouteNames.main,
+      builder: (context, _) => GetMaterialApp(
+        getPages: RoutePages.list,
+        initialRoute: RouteNames.splash,
       ),
     );
   }

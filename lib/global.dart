@@ -7,10 +7,7 @@ class Global {
   static Future<void> init() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    await Future.wait(
-      [Get.putAsync(() => StorageService().init())],
-    ).whenComplete(() {
-      Get.put<ApiService>(ApiService());
-    });
+    Get.put<StorageService>(StorageService());
+    Get.put<ApiService>(ApiService());
   }
 }
