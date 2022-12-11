@@ -28,7 +28,7 @@ class MusicShowPage extends StatelessWidget {
                   child: Card(
                     child: ListTile(
                       onTap: () => Get.toNamed(RouteNames.showDetail, arguments: {
-                        'show': show,
+                        'show': controller.musicShowList[index],
                       }),
                       title: Text(show.title),
                       subtitle: Padding(
