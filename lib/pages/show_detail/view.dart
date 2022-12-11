@@ -24,167 +24,103 @@ class ShowDetailPage extends StatelessWidget {
 
   Widget _buildView() {
     final titleStyle = TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: 18.0.w,
+      // fontWeight: FontWeight.bold,
+      fontSize: 16.0.w,
     );
     return GetBuilder<ShowDetailController>(builder: (controller) {
       final show = controller.show;
       final noWebSales = show.webSales == "";
-      return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12.0.w),
-        child: CustomScrollView(
-          controller: ScrollController(),
-          slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.only(top: 16.0.h),
-                child: Text(
-                  show.title,
-                  style: titleStyle,
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.only(top: 8.0.h),
-                child: Row(
-                  children: [
-                    Text(
-                      '演出單位：',
-                      style: titleStyle,
+      return SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.0.w),
+          child: CustomScrollView(
+            controller: ScrollController(),
+            slivers: [
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 16.0.h),
+                  child: Text(
+                    show.title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0.w,
                     ),
-                    Text(show.showUnit),
-                  ],
+                  ),
                 ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.only(top: 8.0.h),
-                child: Text(
-                  '活動場次資訊:',
-                  style: titleStyle,
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 240.0.h * show.showInfo.length,
-                child: ListView.builder(
-                    itemCount: show.showInfo.length,
-                    itemBuilder: (context, index) {
-                      final showInfo = show.showInfo[index];
-                      final notSaling = showInfo.onSales == "N";
-                      return SizedBox(
-                        height: 240.0.h,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          elevation: 1.0,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10.0.w,
-                              vertical: 10.0.h,
+              SliverToBoxAdapter(
+                child: show.showUnit == ""
+                    ? const SizedBox.shrink()
+                    : Padding(
+                        padding: EdgeInsets.only(top: 8.0.h),
+                        child: Row(
+                          children: [
+                            Text(
+                              '演出單位：',
+                              style: titleStyle,
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            Text(show.showUnit),
+                          ],
+                        ),
+                      ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 8.0.h),
+                  child: Text(
+                    '活動場次資訊:',
+                    style: titleStyle,
+                  ),
+                ),
+              ),
+              ShowInfoCard(show: show),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('活動日期', style: titleStyle),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('${show.startDate} - ${show.endDate}'),
+                      ),
+                      noWebSales
+                          ? const SizedBox.shrink()
+                          : Row(
                               children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      showInfo.locationName,
-                                      style: const TextStyle(fontSize: 16.0),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 4.0.h),
                                 Text(
-                                  showInfo.location,
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                  ),
+                                  '售票網址：',
+                                  style: titleStyle,
                                 ),
-                                SizedBox(height: 8.0.h),
-                                Text('演出開始時間：${showInfo.time}'),
-                                Text('演出結束時間：${showInfo.endTime}'),
-                                SizedBox(
-                                  height: 8.0.h,
+                                TextButton(
+                                  onPressed: () async {
+                                    if (!await launchUrl(Uri.parse(show.webSales))) {
+                                      Console.error('Could not launch ${show.webSales}');
+                                    }
+                                  },
+                                  child: Text('Click Here',
+                                      style: TextStyle(
+                                        fontSize: 17.0.w,
+                                      )),
                                 ),
-                                Text('是否售票：${notSaling ? "否" : "是"}'),
-                                notSaling
-                                    ? const SizedBox.shrink()
-                                    : Text('票價資訊： ${showInfo.price}'),
                               ],
                             ),
-                          ),
-                        ),
-                      );
-                    }),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('活動日期', style: titleStyle),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('${show.startDate} - ${show.endDate}'),
-                    ),
-                    noWebSales
-                        ? const SizedBox.shrink()
-                        : Row(
-                            children: [
-                              Text(
-                                '售票網址：',
-                                style: titleStyle,
-                              ),
-                              TextButton(
-                                onPressed: () async {
-                                  if (!await launchUrl(
-                                      Uri.parse(show.webSales))) {
-                                    Console.error(
-                                        'Could not launch ${show.webSales}');
-                                  }
-                                },
-                                child: Text('Click Here',
-                                    style: TextStyle(
-                                      fontSize: 17.0.w,
-                                    )),
-                              ),
-                            ],
-                          ),
-                    show.descriptionFilterHtml == ""
-                        ? const SizedBox.shrink()
-                        : Text('活動簡介說明', style: titleStyle),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(show.descriptionFilterHtml),
-                    ),
-                  ],
+                      show.descriptionFilterHtml == "" ? const SizedBox.shrink() : Text('活動簡介說明', style: titleStyle),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(show.descriptionFilterHtml),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: show.masterUnit.isEmpty
-                  ? SizedBox.shrink()
-                  : Text('主辦單位', style: titleStyle),
-            ),
-            SliverToBoxAdapter(
-              child: show.masterUnit.isEmpty
-                  ? SizedBox.shrink()
-                  : SizedBox(
-                      height: 120.0.h,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: show.masterUnit.length,
-                          itemBuilder: (context, index) =>
-                              Text(show.masterUnit[index])),
-                    ),
-            )
-          ],
+              UnitWidget(title: '主辦單位', units: show.masterUnit),
+              UnitWidget(title: '協辦單位', units: show.subUnit),
+              UnitWidget(title: '贊助單位', units: show.supportUnit),
+              UnitWidget(title: '其他單位', units: show.otherUnit),
+            ],
+          ),
         ),
       );
     });
