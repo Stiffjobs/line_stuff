@@ -5,6 +5,7 @@ class RouteNames {
   static const splash = '/splash';
   static const musicShow = '/music_show';
   static const showDetail = '/show_detail';
+  static const archivedShow = '/archived_show';
 }
 
 class RoutePages {
@@ -26,5 +27,9 @@ class RoutePages {
       transition: Transition.cupertino,
       page: () => ShowDetailPage(),
     ),
+    GetPage(
+      name: RouteNames.archivedShow,
+      page: () => ArchivedShowPage(),
+    )
   ];
 }

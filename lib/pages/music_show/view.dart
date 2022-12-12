@@ -41,6 +41,22 @@ class MusicShowPage extends StatelessWidget {
   AppBar _buildAppBar() {
     return AppBar(
       centerTitle: true,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 12.0),
+        child: GetBuilder<MusicShowController>(
+            id: 'archived',
+            builder: (controller) {
+              return IconButton(
+                icon: Icon(
+                  Icons.inbox,
+                  color: Colors.black54,
+                ),
+                onPressed: () {
+                  Get.toNamed(RouteNames.archivedShow);
+                },
+              );
+            }),
+      ),
       title: GetBuilder<MusicShowController>(
           id: 'title',
           builder: (controller) {
