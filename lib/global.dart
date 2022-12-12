@@ -9,5 +9,6 @@ class Global {
 
     await Get.putAsync<StorageService>(() => StorageService().init());
     Get.put<ApiService>(ApiService());
+    Get.put<ArchiveService>(ArchiveService());
   }
 }
