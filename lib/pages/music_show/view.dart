@@ -32,29 +32,7 @@ class MusicShowPage extends StatelessWidget {
             itemCount: controller.musicShowList.length,
             itemBuilder: ((context, index) {
               final show = controller.musicShowList[index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Card(
-                  child: ListTile(
-                    onTap: () => Get.toNamed(RouteNames.showDetail, arguments: {
-                      'show': controller.musicShowList[index],
-                    }),
-                    title: Text(show.title),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(show.sourceWebName),
-                          Text(
-                            '${show.startDate} - ${show.endDate}',
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              );
+              return MusicShowItem(show: show);
             }),
           );
         });
@@ -81,30 +59,30 @@ class MusicShowPage extends StatelessWidget {
                 padding: EdgeInsets.only(right: 20.0.w),
                 child: PopupMenuButton<FilterType>(
                     initialValue: controller.filterType,
-                    child: Icon(Icons.tune, color: Colors.black54),
                     onSelected: controller.handleSelect,
                     itemBuilder: (context) => const <PopupMenuEntry<FilterType>>[
                           PopupMenuItem(
-                            child: Text('All'),
                             value: FilterType.all,
+                            child: Text('All'),
                           ),
                           PopupMenuItem(
+                            value: FilterType.newest,
                             child: Text(
                               'Newest',
                             ),
-                            value: FilterType.newest,
                           ),
                           PopupMenuItem(
+                            value: FilterType.oldest,
                             child: Text(
                               'oldest',
                             ),
-                            value: FilterType.oldest,
                           ),
                           PopupMenuItem(
-                            child: Text('Popular'),
                             value: FilterType.popular,
+                            child: Text('Popular'),
                           ),
-                        ]),
+                        ],
+                    child: Icon(Icons.tune, color: Colors.black54)),
               );
             })
       ],

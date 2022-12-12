@@ -10,3 +10,4 @@ import 'package:line_stuff/common/widgets/index.dart';
 
 part 'controller.dart';
 part 'view.dart';
+part 'widgets/music_show_item.dart';
