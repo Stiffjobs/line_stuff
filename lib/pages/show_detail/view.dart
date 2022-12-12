@@ -80,7 +80,7 @@ class ShowDetailPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('活動日期', style: titleStyle),
+                      Text('活動日期：', style: titleStyle),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text('${show.startDate} - ${show.endDate}'),
@@ -95,8 +95,10 @@ class ShowDetailPage extends StatelessWidget {
                                 ),
                                 TextButton(
                                   onPressed: () async {
-                                    if (!await launchUrl(Uri.parse(show.webSales))) {
-                                      Console.error('Could not launch ${show.webSales}');
+                                    if (!await launchUrl(
+                                        Uri.parse(show.webSales))) {
+                                      Console.error(
+                                          'Could not launch ${show.webSales}');
                                     }
                                   },
                                   child: Text('Click Here',
@@ -106,7 +108,9 @@ class ShowDetailPage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                      show.descriptionFilterHtml == "" ? const SizedBox.shrink() : Text('活動簡介說明', style: titleStyle),
+                      show.descriptionFilterHtml == ""
+                          ? const SizedBox.shrink()
+                          : Text('活動簡介說明', style: titleStyle),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(show.descriptionFilterHtml),
@@ -119,6 +123,23 @@ class ShowDetailPage extends StatelessWidget {
               UnitWidget(title: '協辦單位', units: show.subUnit),
               UnitWidget(title: '贊助單位', units: show.supportUnit),
               UnitWidget(title: '其他單位', units: show.otherUnit),
+              SliverToBoxAdapter(
+                  child: Row(
+                children: [
+                  Text('推廣網站：'),
+                  TextButton(
+                      onPressed: () async {
+                        if (!await launchUrl(
+                            Uri.parse(show.sourceWebPromote))) {
+                          Console.error(
+                              'Could not launch ${show.sourceWebPromote}');
+                        }
+                      },
+                      child: Text(
+                        show.sourceWebName,
+                      ))
+                ],
+              ))
             ],
           ),
         ),

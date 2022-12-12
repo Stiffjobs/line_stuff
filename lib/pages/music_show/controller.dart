@@ -5,6 +5,35 @@ class MusicShowController extends GetxController {
   List<ShowModel> musicShowList = [];
   final api = ApiService.to.dio;
   String appbarTitle = '音樂表演';
+  FilterType filterType = FilterType.all;
+
+  void handleSelect(FilterType type) {
+    filterType = type;
+    handleFilter(type);
+    update();
+  }
+
+  void handleFilter(FilterType type) {
+    switch (type) {
+      case FilterType.all:
+        final json = jsonDecode(StorageService.to.getString(Constants.storageMusicShow));
+        musicShowList = (json as List).map((e) => ShowModel.fromJson(e)).toList();
+        update(['list']);
+        break;
+      case FilterType.newest:
+        musicShowList.sort((a, b) => b.startDate.compareTo(a.startDate));
+        break;
+
+      case FilterType.oldest:
+        musicShowList.sort((a, b) => a.startDate.compareTo(b.startDate));
+        break;
+      case FilterType.popular:
+        musicShowList.sort((a, b) => b.hitRate.compareTo(a.hitRate));
+        break;
+    }
+
+    update(['list']);
+  }
 
   Future<void> init() async {
     try {
